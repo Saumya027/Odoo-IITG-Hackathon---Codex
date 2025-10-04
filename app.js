@@ -1,11 +1,4 @@
-// ============================================================================
-// ExpenseFlow - Complete Expense Management System
-// app.js - Integrated Backend Logic
-// ============================================================================
 
-// ============================================================================
-// DATA MODELS & STATE
-// ============================================================================
 
 const AppState = {
   currentUser: null,
@@ -18,9 +11,7 @@ const AppState = {
   exchangeRates: {}
 };
 
-// ============================================================================
-// UTILITY FUNCTIONS
-// ============================================================================
+
 
 const Utils = {
   generateId: (prefix = 'ID') => `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -66,9 +57,6 @@ const Utils = {
   }
 };
 
-// ============================================================================
-// API SERVICE
-// ============================================================================
 
 const APIService = {
   async fetchCountries() {
@@ -108,11 +96,11 @@ const APIService = {
     return rate ? amount * rate : amount;
   },
   
-  // OCR Simulation (Mock - in production, use real OCR API like Tesseract.js or cloud services)
+
   async performOCR(imageFile) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Simulated OCR result
+
         resolve({
           amount: (Math.random() * 500 + 50).toFixed(2),
           date: new Date().toISOString().split('T')[0],
@@ -125,26 +113,16 @@ const APIService = {
   }
 };
 
-// ============================================================================
-// STORAGE SERVICE (Using In-Memory Storage)
-// ============================================================================
 
 const StorageService = {
   save() {
-    // In production, this would save to a real backend
-    // For now, data persists only in memory during the session
     console.log('Data saved to memory', AppState);
   },
   
   load() {
-    // In production, this would load from a real backend
     console.log('Data loaded from memory');
   }
 };
-
-// ============================================================================
-// AUTHENTICATION SERVICE
-// ============================================================================
 
 const AuthService = {
   async signup(name, email, password, companyName, country) {
@@ -160,11 +138,9 @@ const AuthService = {
         throw new Error('Company already exists');
       }
       
-      // Get currency for selected country
       const countryData = AppState.currencies.find(c => c.name === country);
       const currency = countryData?.currency || 'USD';
       
-      // Create new company
       const company = {
         id: Utils.generateId('COMP'),
         name: companyName,
@@ -173,13 +149,12 @@ const AuthService = {
         createdAt: new Date().toISOString()
       };
       
-      // Create admin user
       const admin = {
         id: Utils.generateId('USR'),
         companyId: company.id,
         name: name,
         email: email,
-        password: password, // In production, hash this!
+        password: password, 
         role: 'admin',
         managerId: null,
         createdAt: new Date().toISOString()
@@ -227,7 +202,7 @@ const AuthService = {
       AppState.currentUser = user;
       AppState.currentCompany = company;
       
-      // Fetch exchange rates for company's base currency
+
       AppState.exchangeRates[company.baseCurrency] = await APIService.fetchExchangeRates(company.baseCurrency);
       
       Utils.hideLoader();
@@ -286,9 +261,6 @@ const AuthService = {
   }
 };
 
-// ============================================================================
-// EMPLOYEE MANAGEMENT SERVICE
-// ============================================================================
 
 const EmployeeService = {
   createEmployee(data) {
@@ -357,9 +329,6 @@ const EmployeeService = {
   }
 };
 
-// ============================================================================
-// EXPENSE SERVICE
-// ============================================================================
 
 const ExpenseService = {
   async submitExpense(data) {
@@ -606,9 +575,6 @@ const ExpenseService = {
   }
 };
 
-// ============================================================================
-// APPROVAL RULES SERVICE
-// ============================================================================
 
 const ApprovalRuleService = {
   createRule(data) {
@@ -671,9 +637,6 @@ const ApprovalRuleService = {
   }
 };
 
-// ============================================================================
-// UI RENDERING
-// ============================================================================
 
 const UI = {
   renderDashboard() {
