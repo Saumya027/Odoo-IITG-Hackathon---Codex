@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpenseFlow - Expense Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Global Loader -->
+  <div id="globalLoader" class="loader-overlay hidden">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Landing Page -->
+  <div id="landingPage">
+    <header class="site-header">
+      <div class="site-container header-inner">
+        <div class="brand">
+          <span class="brand-title">ExpenseFlow</span>
+        </div>
+        <div class="main-nav">
+          <button class="btn ghost" id="btnSignIn">Sign In</button>
+          <button class="btn primary" id="btnGetStarted">Get Started</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="landing">
+      <div class="site-container">
+        <div class="landing-grid">
+          <div>
+            <h1 class="hero-title">Streamline Your Expense Management</h1>
+            <p class="hero-sub">A complete solution for managing company expenses, approvals, and reporting. Built for modern teams.</p>
+            <div class="hero-ctas">
+              <button class="btn primary" id="btnGetStarted2">Start Free Trial</button>
+              <button class="btn ghost" id="btnLearnMore">Learn More</button>
+            </div>
+          </div>
+          <div class="cards">
+            <div class="feature-card">
+              <h3>Multi-Currency Support</h3>
+              <p class="muted-sm">Handle expenses in any currency with automatic conversion.</p>
+            </div>
+            <div class="feature-card">
+              <h3>Smart Approvals</h3>
+              <p class="muted-sm">Configure approval rules based on amounts and hierarchies.</p>
+            </div>
+            <div class="feature-card">
+              <h3>Real-time Tracking</h3>
+              <p class="muted-sm">Monitor all expenses and reports in one centralized dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="overlay">
+    <div class="modal-card">
+      <button class="close-x" id="authClose">&times;</button>
+      
+      <!-- Signup View -->
+      <div id="signupView" class="hidden">
+        <h2>Create Admin Account</h2>
+        <p class="muted">Setup your company's expense management system</p>
+        
+        <div class="form-group">
+          <label for="signupName">Admin Full Name</label>
+          <input type="text" id="signupName" placeholder="Your Name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="signupCompanyName">Company Name</label>
+          <input type="text" id="signupCompanyName" placeholder="Your Company Ltd." required>
+        </div>
+        
+        <div class="form-group">
+          <label for="signupEmail">Admin Email</label>
+          <input type="email" id="signupEmail" placeholder="admin@company.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="Min 6 characters" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="signupCountry">Country (for base currency)</label>
+          <select id="signupCountry" required>
+            <option value="">Loading countries...</option>
+          </select>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="btn primary" id="doSignup">Create Account</button>
+        </div>
+        
+        <p class="muted-sm center" style="margin-top: 12px;">
+          Already have an account? <a href="#" id="showSignIn" style="color: #3b82f6;">Sign In</a>
+        </p>
+      </div>
+
+      <!-- Signin View -->
+      <div id="signinView" class="hidden">
+        <h2>Sign In to ExpenseFlow</h2>
+        <p class="muted">Access your expense management dashboard</p>
+        
+        <!-- Signin Tabs -->
+        <div class="signin-tabs">
+          <button class="tab-btn active" id="adminTabBtn">Admin</button>
+          <button class="tab-btn" id="employeeTabBtn">Employee</button>
+        </div>
+        
+        <!-- Admin Signin -->
+        <div id="adminSigninView">
+          <div class="form-group">
+            <label for="signinEmail">Admin Email</label>
+            <input type="email" id="signinEmail" placeholder="admin@company.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="signinPassword">Password</label>
+            <input type="password" id="signinPassword" placeholder="Enter your password">
+          </div>
+        </div>
+        
+        <!-- Employee Signin -->
+        <div id="employeeSigninView" class="hidden">
+          <div class="form-group">
+            <label for="signinCompanyName">Company Name</label>
+            <input type="text" id="signinCompanyName" placeholder="Your Company Ltd.">
+          </div>
+          
+          <div class="form-group">
+            <label for="signinEmpId">Employee ID</label>
+            <input type="text" id="signinEmpId" placeholder="EMP001">
+          </div>
+          
+          <div class="form-group">
+            <label for="signinEmpPassword">Password</label>
+            <input type="password" id="signinEmpPassword" placeholder="Enter your password">
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="btn primary" id="doSignin">Sign In</button>
+        </div>
+        
+        <p class="muted-sm center" style="margin-top: 12px;">
+          Don't have an account? <a href="#" id="showSignUp" style="color: #3b82f6;">Sign Up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Dashboard (Hidden Initially) -->
+  <div id="appRoot" class="app-root hidden"></div>
+
+  <!-- Generic Modal -->
+  <div id="genericModal" class="overlay">
+    <div class="modal-card">
+      <button class="close-x" id="genericModalClose">&times;</button>
+      <h3 id="genericModalTitle">Modal Title</h3>
+      <p id="genericModalMessage" class="muted"></p>
+      <div id="genericModalContent"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="genericModalCancel">Cancel</button>
+        <button class="btn primary" id="genericModalConfirm">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
